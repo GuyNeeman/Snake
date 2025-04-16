@@ -44,7 +44,6 @@ export default function Snake({ position, setPosition, setSnake, snake, setBody,
                 const hitsBody = snake > 0 && body.some(segment => segment.x === newPosition.x && segment.y === newPosition.y);
 
                 const resetGame = () => {
-                    setSnake(0);
                     setBody([]);
                     directionRef.current = "";
                     nextDirectionRef.current = "";

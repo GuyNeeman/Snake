@@ -64,7 +64,7 @@ export default function Grid() {
                         maxWidth: "300px"
                     }}>
                         <h2>Game Over!</h2>
-                        <p>Your score: {snake / 2 + 1}</p>
+                        <p>Your score: {snake / 2}</p>
                         <button onClick={resetGame} style={{
                             padding: "0.5rem 1rem",
                             fontSize: "1rem",
