@@ -1,7 +1,7 @@
 import Snake from "./Snake.jsx";
 import Apple from "./Apple.jsx";
 import Body from "./Body.jsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Grid() {
     const [positionApple, setPositionApple] = useState({ x: 280, y: 420 });
@@ -10,9 +10,16 @@ export default function Grid() {
     const [highscore, setHighscore] = useState(0);
     const [gameover, setGameOver] = useState(false);
     const [body, setBody] = useState([]);
+    const appleEatenRef = useRef(false);
 
     useEffect(() => {
-        if (positionSnake.x === positionApple.x && positionSnake.y === positionApple.y) {
+        if (
+            positionSnake.x === positionApple.x &&
+            positionSnake.y === positionApple.y &&
+            !appleEatenRef.current
+        ) {
+            appleEatenRef.current = true;
+
             const maxStepsX = Math.floor(595 / 35);
             const maxStepsY = Math.floor(595 / 35);
 
@@ -21,15 +28,19 @@ export default function Grid() {
             while (!valid) {
                 newX = Math.floor(Math.random() * maxStepsX) * 35;
                 newY = Math.floor(Math.random() * maxStepsY) * 35;
-                valid = !body.some(segment => segment.x === newX && segment.y === newY) &&
+                valid =
+                    !body.some(segment => segment.x === newX && segment.y === newY) &&
                     !(positionSnake.x === newX && positionSnake.y === newY);
             }
 
             setPositionApple({ x: newX, y: newY });
             setSnake(prev => prev + 2);
-            if(snake/2 >= highscore){
-                setHighscore( snake/2+1);
-            }
+            setHighscore(prev => Math.max(prev, (snake / 2) + 1));
+        } else if (
+            positionSnake.x !== positionApple.x ||
+            positionSnake.y !== positionApple.y
+        ) {
+            appleEatenRef.current = false;
         }
     }, [positionSnake, positionApple, body]);
 
@@ -83,11 +94,11 @@ export default function Grid() {
                         position: "relative",
                         backgroundColor: "#AAD751",
                         backgroundImage: `
-                        linear-gradient(45deg, #A2D149 25%, transparent 25%),
-                        linear-gradient(-45deg, #A2D149 25%, transparent 25%),
-                        linear-gradient(45deg, transparent 75%, #A2D149 75%),
-                        linear-gradient(-45deg, transparent 75%, #A2D149 75%)
-                    `,
+                            linear-gradient(45deg, #A2D149 25%, transparent 25%),
+                            linear-gradient(-45deg, #A2D149 25%, transparent 25%),
+                            linear-gradient(45deg, transparent 75%, #A2D149 75%),
+                            linear-gradient(-45deg, transparent 75%, #A2D149 75%)
+                        `,
                         backgroundSize: "70px 70px",
                         backgroundPosition: "0 0, 0 35px, 35px -35px, -35px 0px"
                     }}
