@@ -4,16 +4,16 @@ import Body from "./Body.jsx";
 import { useState, useEffect } from "react";
 
 export default function Grid() {
-    const [positionApple, setPositionApple] = useState({ x: 280, y: 630 });
-    const [positionSnake, setPositionSnake] = useState({ x: 105, y: 350 });
+    const [positionApple, setPositionApple] = useState({ x: 280, y: 420 });
+    const [positionSnake, setPositionSnake] = useState({ x: 70, y: 280 });
     const [snake, setSnake] = useState(0);
     const [highscore, setHighscore] = useState(0);
     const [body, setBody] = useState([]);
 
     useEffect(() => {
         if (positionSnake.x === positionApple.x && positionSnake.y === positionApple.y) {
-            const maxStepsX = Math.floor(735 / 35);
-            const maxStepsY = Math.floor(735 / 35);
+            const maxStepsX = Math.floor(595 / 35);
+            const maxStepsY = Math.floor(595 / 35);
 
             let newX, newY, valid = false;
 
@@ -35,12 +35,12 @@ export default function Grid() {
     return (
         <>
             <h2>Punkte = {snake / 2} , High Score = {highscore}</h2>
-            <h5>ToDo: make field smaller, add head and rotate it 90*, add reset and gamestart</h5>
+            <h5>ToDo: add head and rotate it 90*, add reset and gamestart</h5>
             <div className="container">
                 <div
                     style={{
-                        width: "735px",
-                        height: "735px",
+                        width: "595px",
+                        height: "595px",
                         position: "relative",
                         backgroundColor: "#AAD751",
                         backgroundImage: `

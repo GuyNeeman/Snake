@@ -38,8 +38,8 @@ export default function Snake({ position, setPosition, setSnake, snake, setBody,
                 }
 
                 const isOutOfBounds =
-                    newPosition.x < 0 || newPosition.x >= 735 ||
-                    newPosition.y < 0 || newPosition.y >= 735;
+                    newPosition.x < 0 || newPosition.x >= 595 ||
+                    newPosition.y < 0 || newPosition.y >= 595;
 
                 const hitsBody = snake > 0 && body.some(segment => segment.x === newPosition.x && segment.y === newPosition.y);
 
@@ -48,7 +48,7 @@ export default function Snake({ position, setPosition, setSnake, snake, setBody,
                     setBody([]);
                     directionRef.current = "d";
                     nextDirectionRef.current = "d";
-                    setPosition({ x: 105, y: 350 });
+                    setPosition({ x: 70, y: 280 });
                 };
 
                 if (isOutOfBounds || hitsBody) {
