@@ -26,9 +26,9 @@ export default function Grid() {
             }
 
             setPositionApple({ x: newX, y: newY });
-            setSnake(prev => prev + 1);
-            if(snake >= highscore){
-                setHighscore( snake);
+            setSnake(prev => prev + 2);
+            if(snake/2 >= highscore){
+                setHighscore( snake/2+1);
             }
         }
     }, [positionSnake, positionApple, body]);
@@ -43,7 +43,7 @@ export default function Grid() {
 
     return (
         <>
-            <h2>Punkte = {snake} , High Score = {highscore}</h2>
+            <h2>Punkte = {snake / 2} , High Score = {highscore}</h2>
             <h5>ToDo: add head and rotate it 90*</h5>
 
             {gameover && (
@@ -64,7 +64,7 @@ export default function Grid() {
                         maxWidth: "300px"
                     }}>
                         <h2>Game Over!</h2>
-                        <p>Your score: {snake}</p>
+                        <p>Your score: {snake / 2}</p>
                         <button onClick={resetGame} style={{
                             padding: "0.5rem 1rem",
                             fontSize: "1rem",
