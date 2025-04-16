@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-export default function Snake({ position, setPosition, setSnake, snake, setBody, body }) {
+export default function Snake({ position, setPosition, setSnake, snake, setBody, body, gameover, setGameOver }) {
     const [inputs] = useState({ width: 35, height: 35 });
-    const directionRef = useRef("d");
-    const nextDirectionRef = useRef("d");
+    const directionRef = useRef("");
+    const nextDirectionRef = useRef("");
 
     const handleKeyPress = useCallback((event) => {
         const keyMap = {
@@ -46,9 +46,10 @@ export default function Snake({ position, setPosition, setSnake, snake, setBody,
                 const resetGame = () => {
                     setSnake(0);
                     setBody([]);
-                    directionRef.current = "d";
-                    nextDirectionRef.current = "d";
+                    directionRef.current = "";
+                    nextDirectionRef.current = "";
                     setPosition({ x: 70, y: 280 });
+                    setGameOver(true);
                 };
 
                 if (isOutOfBounds || hitsBody) {
