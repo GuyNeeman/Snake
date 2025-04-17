@@ -1,7 +1,7 @@
 import Snake from "./Snake.jsx";
 import Apple from "./Apple.jsx";
 import Body from "./Body.jsx";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 export default function Grid() {
     const [positionApple, setPositionApple] = useState({ x: 280, y: 420 });
@@ -10,16 +10,10 @@ export default function Grid() {
     const [highscore, setHighscore] = useState(0);
     const [gameover, setGameOver] = useState(false);
     const [body, setBody] = useState([]);
-    const appleEatenRef = useRef(false);
+    const [lastpoint, setLastPoint] = useState([]);
 
     useEffect(() => {
-        if (
-            positionSnake.x === positionApple.x &&
-            positionSnake.y === positionApple.y &&
-            !appleEatenRef.current
-        ) {
-            appleEatenRef.current = true;
-
+        if (positionSnake.x === positionApple.x && positionSnake.y === positionApple.y) {
             const maxStepsX = Math.floor(595 / 35);
             const maxStepsY = Math.floor(595 / 35);
 
@@ -28,19 +22,16 @@ export default function Grid() {
             while (!valid) {
                 newX = Math.floor(Math.random() * maxStepsX) * 35;
                 newY = Math.floor(Math.random() * maxStepsY) * 35;
-                valid =
-                    !body.some(segment => segment.x === newX && segment.y === newY) &&
+                valid = !body.some(segment => segment.x === newX && segment.y === newY) &&
                     !(positionSnake.x === newX && positionSnake.y === newY);
             }
 
             setPositionApple({ x: newX, y: newY });
             setSnake(prev => prev + 2);
-            setHighscore(prev => Math.max(prev, (snake / 2) + 1));
-        } else if (
-            positionSnake.x !== positionApple.x ||
-            positionSnake.y !== positionApple.y
-        ) {
-            appleEatenRef.current = false;
+            console.log("PointGiven")
+            if(snake/2 >= highscore){
+                setHighscore( snake/2+1);
+            }
         }
     }, [positionSnake, positionApple, body]);
 
@@ -75,7 +66,7 @@ export default function Grid() {
                         maxWidth: "300px"
                     }}>
                         <h2>Game Over!</h2>
-                        <p>Your score: {snake / 2}</p>
+                        <p>Your score: {lastpoint / 2}</p>
                         <button onClick={resetGame} style={{
                             padding: "0.5rem 1rem",
                             fontSize: "1rem",
@@ -94,11 +85,11 @@ export default function Grid() {
                         position: "relative",
                         backgroundColor: "#AAD751",
                         backgroundImage: `
-                            linear-gradient(45deg, #A2D149 25%, transparent 25%),
-                            linear-gradient(-45deg, #A2D149 25%, transparent 25%),
-                            linear-gradient(45deg, transparent 75%, #A2D149 75%),
-                            linear-gradient(-45deg, transparent 75%, #A2D149 75%)
-                        `,
+                        linear-gradient(45deg, #A2D149 25%, transparent 25%),
+                        linear-gradient(-45deg, #A2D149 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #A2D149 75%),
+                        linear-gradient(-45deg, transparent 75%, #A2D149 75%)
+                    `,
                         backgroundSize: "70px 70px",
                         backgroundPosition: "0 0, 0 35px, 35px -35px, -35px 0px"
                     }}
@@ -112,6 +103,7 @@ export default function Grid() {
                         setBody={setBody}
                         body={body}
                         setGameOver={setGameOver}
+                        setLastPoint={setLastPoint}
                     />
                     <Apple position={positionApple} />
                 </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-export default function Snake({ position, setPosition, setSnake, snake, setBody, body, gameover, setGameOver }) {
+export default function Snake({ position, setPosition, setSnake, snake, setBody, body, gameover, setGameOver, setLastPoint }) {
     const [inputs] = useState({ width: 35, height: 35 });
     const directionRef = useRef("");
     const nextDirectionRef = useRef("");
@@ -49,6 +49,8 @@ export default function Snake({ position, setPosition, setSnake, snake, setBody,
                     nextDirectionRef.current = "";
                     setPosition({ x: 70, y: 280 });
                     setGameOver(true);
+                    setLastPoint(snake);
+                    setSnake(0);
                 };
 
                 if (isOutOfBounds || hitsBody) {
