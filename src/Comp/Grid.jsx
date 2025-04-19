@@ -1,7 +1,7 @@
 import Snake from "./Snake.jsx";
 import Apple from "./Apple.jsx";
 import Body from "./Body.jsx";
-import { useState, useEffect } from "react";
+import {useState, useEffect, useRef} from "react";
 
 export default function Grid() {
     const [positionApple, setPositionApple] = useState({ x: 280, y: 420 });
@@ -11,6 +11,7 @@ export default function Grid() {
     const [gameover, setGameOver] = useState(false);
     const [body, setBody] = useState([]);
     const [lastpoint, setLastPoint] = useState([]);
+    const directionRef = useRef("");
 
     useEffect(() => {
         if (positionSnake.x === positionApple.x && positionSnake.y === positionApple.y) {
@@ -27,10 +28,10 @@ export default function Grid() {
             }
 
             setPositionApple({ x: newX, y: newY });
-            setSnake(prev => prev + 2);
+            setSnake(prev => prev + 1);
             console.log("PointGiven")
-            if(snake/2 >= highscore){
-                setHighscore( snake/2+1);
+            if(snake >= highscore){
+                setHighscore( snake);
             }
         }
     }, [positionSnake, positionApple, body]);
@@ -45,7 +46,7 @@ export default function Grid() {
 
     return (
         <>
-            <h2>Punkte = {snake / 2} , High Score = {highscore}</h2>
+            <h2>Punkte = {snake} , High Score = {highscore}</h2>
             <h5>ToDo: add head and rotate it 90*</h5>
 
             {gameover && (
@@ -66,7 +67,7 @@ export default function Grid() {
                         maxWidth: "300px"
                     }}>
                         <h2>Game Over!</h2>
-                        <p>Your score: {lastpoint / 2}</p>
+                        <p>Your score: {lastpoint}</p>
                         <button onClick={resetGame} style={{
                             padding: "0.5rem 1rem",
                             fontSize: "1rem",
@@ -94,7 +95,10 @@ export default function Grid() {
                         backgroundPosition: "0 0, 0 35px, 35px -35px, -35px 0px"
                     }}
                 >
-                    <Body body={body} />
+                    <Body
+                        body={body}
+                        directionRef={directionRef}
+                    />
                     <Snake
                         position={positionSnake}
                         setPosition={setPositionSnake}
@@ -104,6 +108,7 @@ export default function Grid() {
                         body={body}
                         setGameOver={setGameOver}
                         setLastPoint={setLastPoint}
+                        directionRef={directionRef}
                     />
                     <Apple position={positionApple} />
                 </div>

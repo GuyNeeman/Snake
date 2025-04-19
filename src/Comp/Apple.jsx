@@ -1,7 +1,6 @@
-import { useState } from "react";
+import appleImage from '../assets/apple.png';
 
 export default function Apple({ position }) {
-    const [inputs] = useState({ width: 35, height: 35 });
 
     return (
         <div
@@ -17,40 +16,17 @@ export default function Apple({ position }) {
                 zIndex: 1,
             }}
         >
-            <div
+            <img
+                src={appleImage}
+                alt="apple"
                 style={{
-                    width: "28px",
-                    height: "28px",
-                    backgroundColor: "red",
-                    borderRadius: "50%",
-                    position: "relative",
-                    boxShadow: "inset -1px -2px 3px rgba(0,0,0,0.3)",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    maxWidth: "35px",
+                    maxHeight: "35px"
                 }}
-            >
-                <div
-                    style={{
-                        width: "3px",
-                        height: "5px",
-                        backgroundColor: "brown",
-                        borderRadius: "1px",
-                        position: "absolute",
-                        top: "-3px",
-                        left: "12px",
-                    }}
-                />
-                <div
-                    style={{
-                        width: "6px",
-                        height: "3px",
-                        backgroundColor: "green",
-                        borderRadius: "50%",
-                        position: "absolute",
-                        top: "-3px",
-                        left: "13px",
-                        transform: "rotate(30deg)",
-                    }}
-                />
-            </div>
+            />
         </div>
     );
 }
