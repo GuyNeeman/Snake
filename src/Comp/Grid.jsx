@@ -47,7 +47,6 @@ export default function Grid() {
     return (
         <>
             <h2>Punkte = {snake} , High Score = {highscore}</h2>
-            <h5>ToDo: add head and rotate it 90*</h5>
 
             {gameover && (
                 <div style={{
@@ -95,10 +94,7 @@ export default function Grid() {
                         backgroundPosition: "0 0, 0 35px, 35px -35px, -35px 0px"
                     }}
                 >
-                    <Body
-                        body={body}
-                        directionRef={directionRef}
-                    />
+                    <Body body={body}/>
                     <Snake
                         position={positionSnake}
                         setPosition={setPositionSnake}
@@ -106,6 +102,7 @@ export default function Grid() {
                         snake={snake}
                         setBody={setBody}
                         body={body}
+                        gameover={gameover}
                         setGameOver={setGameOver}
                         setLastPoint={setLastPoint}
                         directionRef={directionRef}

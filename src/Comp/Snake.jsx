@@ -5,6 +5,8 @@ export default function Snake({ position, setPosition, setSnake, snake, setBody,
     const nextDirectionRef = useRef("");
 
     const handleKeyPress = useCallback((event) => {
+        if (gameover) return;
+
         const newDir = getDirectionFromKey(event.key);
         if (!newDir) return;
 
@@ -12,7 +14,7 @@ export default function Snake({ position, setPosition, setSnake, snake, setBody,
         if (newDir !== oppositeDirections[directionRef.current]) {
             nextDirectionRef.current = newDir;
         }
-    }, []);
+    }, [gameover]);
 
     const getDirectionFromKey = (key) => {
         const keyMap = {
@@ -67,6 +69,8 @@ export default function Snake({ position, setPosition, setSnake, snake, setBody,
     };
 
     useEffect(() => {
+        if (gameover) return;
+
         const gameInterval = setInterval(() => {
             directionRef.current = nextDirectionRef.current;
 
@@ -84,7 +88,7 @@ export default function Snake({ position, setPosition, setSnake, snake, setBody,
         }, 150);
 
         return () => clearInterval(gameInterval);
-    }, [setPosition, setBody, snake, setSnake, body]);
+    }, [setPosition, setBody, snake, body, gameover]);
 
     useEffect(() => {
         window.addEventListener("keydown", handleKeyPress);
