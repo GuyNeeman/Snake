@@ -47,7 +47,6 @@ export default function Grid() {
     return (
         <>
             <h2>Punkte = {snake} , High Score = {highscore}</h2>
-
             {gameover && (
                 <div style={{
                     position: "fixed",
