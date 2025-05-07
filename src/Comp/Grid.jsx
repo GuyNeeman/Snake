@@ -31,7 +31,7 @@ export default function Grid() {
             setSnake(prev => prev + 1);
             console.log("PointGiven")
             if(snake >= highscore){
-                setHighscore( snake);
+                setHighscore(snake+1);
             }
         }
     }, [positionSnake, positionApple, body]);
