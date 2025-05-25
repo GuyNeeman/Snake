@@ -1,6 +1,5 @@
 import './App.css';
 import { useState } from "react";
-import Snake from "./Comp/Snake.jsx";
 import Grid from "./Comp/Grid.jsx";
 
 function App() {
@@ -13,12 +12,7 @@ function App() {
         y: 350
     });
 
-    return (
-        <>
-            <h1>Snake</h1>
-            <Grid></Grid>
-        </>
-    );
+    return (<Grid></Grid>);
 }
 
 export default App;
